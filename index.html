@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="generator" content="HTML Tidy, see www.w3.org">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"><!--LETS POWN IE-->
+    
+    <title>jQuery Presentation</title>
+    
+    <script type="text/javascript" src="script/jquery-1.4.2.js"></script>
+    <script type="text/javascript" src="script/jquery-ui-1.8.4.custom.min.js"></script>
+    <script type="text/javascript" src="script/miniIde.js"></script>
+    <script type="text/javascript" src="script/jquery.presentation-full.js"></script>
+    <script type="text/javascript" src="script/jquery.chili-2.2.js"></script>
+    <script type="text/javascript" src="script/recipes.js"></script>
+    <script type="text/javascript" src="script/theme-roller-file.js"></script>
+
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#slides').presentation();
+    });             
+    </script>
+    
+    <link rel="stylesheet" type="text/css" href="style/screen.css" />
+    <link rel="stylesheet" type="text/css" href="style/recipes.css"/>
+    <link rel="stylesheet" type="text/css" href="style/smoothness/jquery-ui-1.8.4.custom.css"/>
+  </head>
+  <body>
+    <div id="slides">
+      
+      <div id="title-slide" class="slide">
+        <img alt="jQuery logo" src="img/logos/jQuery_logo_color_onwhite.png"/>
+        <h1>The JavaScript utility library</h1>
+        <h2>Sylvain Gizard - Gemalto</h2>
+      </div>
+      
+      <div class="slide">
+        <h1>Who am I?</h1>
+        <ul>
+           <li>Telecommunications engineering student @ INSA Lyon (France)</li>
+           <li>Software Engineer Intern @ Gemalto R&D Singapore</li>
+           <li>Push Manager Team - Front end development</li>
+        </ul>
+      </div>
+      
+      <div class="slide">
+        <h1>jQuery?</h1>
+        <ul>
+           <li>Lightweight (24kb minified and gzipped), Cross-browser JavaScript library</li>
+           <li>Aimed to increase productivity by offering an extended set of shorthand functions.</li>
+           <li>Created by John Resig in 2006, currently working @ Mozilla Corp</li>
+           <li>Open Source (MIT or GPL license)</li>
+        </ul>
+      </div>
+      
+      <div class="slide">
+        <h1>Some numbers...</h1>
+        <ul>
+           <li>Current version: 1.4.2 (3x speedup since last year version) </li>
+           <li>Used by 35% of the 10.000 top sites</li>
+           <li>69.4% "market share"</li>
+        </ul>
+      </div>
+      
+      <div class="slide">
+        <h1>Why using jQuery</h1>
+        <ul>
+           <li>We have the standards issued by the W3C</li>
+           <li>JavaScript, DOM, CSS implementations of the standards can differ (right IE?)</li>
+           <li>To avoid writing specific hacks for some browsers : need an abstraction library</li>
+        </ul>
+        <img style="display: block; width: 130px; position: relative; float: right; top: -205px;" src="img/logos/ie-devil_03.png" alt="evil IE">      
+      </div>
+      
+      <div class="slide">
+        <h1>Inside jQuery</h1>
+        <ul>
+           <li>Selectors & traversing</li>
+           <li>Manipulation</li>
+           <li>Styling(CSS)</li>
+           <li>Events</li>
+           <li>Effects</li>
+           <li>AJAX</li>
+           <li>Utilities</li>
+        </ul>
+      </div>
+      
+      <div class="slide">
+        <h1>Alternatives to jQuery</h1>
+        <ul>
+           <li>Prototype</li>
+           <li>MooTools</li>
+           <li>Script.aculo.us</li>
+           <li>YUI Library</li>
+        </ul>
+      </div>
+      
+      <div class="interlude slide">
+        <h1>And now, let's write some jQuery!</h1>
+      </div>
+      
+      <div class="slide">
+        <div class="code-example" style="width:400px;">  
+        <pre class="js">function User(first, last){
+  this.name = first + " " + last;
+}
+window.name = "Resig";
+var user = User("John", name);
+assert( name == "John Resig", "The name variable is accidentally overridden." );</pre>    
+        <textarea class="code"></textarea>
+        </div>
+      </div>
+      
+      <div class="slide">
+        <div class="code-example" style="width:400px;">  
+          <pre class="js">alert("Hello world!");</pre>    
+          <textarea id="code-hello" class="code"></textarea>
+        </div>
+        <button id="hello" type="button" class="live-test">Test me</button>
+      </div>
+      
+      
+      <div class="slide full">
+        <object id="jq-api-embed" type="text/html" class="site-embed"></object>
+        <script type="text/javascript">
+          $(window).load(function(){
+            $("#jq-api-embed").attr("data","http://api.jquery.com/browser");
+          });
+        </script>
+      </div>
+      
+      
+      <div class="slide">
+        
+        <style type="text/css">
+          .test{
+            width:300px;
+            height:100px;
+            margin:auto;
+            border:5px solid rgba(255,255,255,0.5);
+            -moz-border-radius:10px;
+          }
+          
+          .selector-example{
+            margin-bottom:10px;
+          }
+        </style>
+        <h1>Selectors & CSS fun</h1>
+        
+        <div class="code-example selector-example" style="width:400px;">  
+          <pre>#test.test</pre>    
+          <textarea id="code-selector-example" class="code"></textarea>
+        </div>
+        
+        <div class="code-example selector-example" style="width:400px;">  
+          <pre class="css">background-color:red;</pre>    
+          <textarea id="code-selector-example-css" class="code"></textarea>
+        </div>
+        
+        <input type="text" id="code-selector-ex" style="display:none;"/>
+        <button id="selector-ex" type="button" class="live-test">Stylize it</button>
+                
+        <div id="test" class="test">Stylize Me!</div>
+
+        <script type="text/javascript">
+          $(window).load(function(){
+            $("#selector-ex").click(function(){
+              //poor's man css parsing :)
+              var jqCall="$('"+$("#code-selector-example").val()+"')",
+                  cssProps=$("#code-selector-example-css").val().match(/(.+:.+);/g);
+                  
+              for (var prop in cssProps) {
+                var tokens=cssProps[prop].split(":");
+                jqCall += ".css('"+tokens[0]+"','"+tokens[1].substring(0,tokens[1].length-1)+"')";
+              }
+              jqCall+=";";
+              
+              $("#code-selector-ex").val(jqCall);
+            });
+          });
+        </script>
+      </div>
+      
+      <div id="theme-roller-demo" class="slide">
+        <div id="date-picker-demo"></div>
+        <script type="text/javascript">
+          $(window).load(function(){
+            $("#date-picker-demo").datepicker();
+            $("#theme-roller-demo").themeRoller();
+            $('#inline_themeroller');
+          });
+        </script>
+      </div>
+      
+    </div>
+    <!-- Foooooter -->
+    <div id="footer">
+    </div>
+  </body>
+</html>
+
