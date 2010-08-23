@@ -10,15 +10,22 @@
     
     <script type="text/javascript" src="script/jquery-1.4.2.js"></script>
     <script type="text/javascript" src="script/jquery-ui-1.8.4.custom.min.js"></script>
+		<script type="text/javascript" src="script/jquery.autogrow.js"></script>
     <script type="text/javascript" src="script/miniIde.js"></script>
     <script type="text/javascript" src="script/jquery.presentation-full.js"></script>
     <script type="text/javascript" src="script/jquery.chili-2.2.js"></script>
     <script type="text/javascript" src="script/recipes.js"></script>
     <script type="text/javascript" src="script/theme-roller-file.js"></script>
-
+    
     
     <script type="text/javascript">
     $(document).ready(function(){
+      elementcache={
+        "selector-ex" : $("#dynamic-selector-ex"),
+        "elements-ex" : $("#elements-ex"),
+				"dynamic-code-ex":$("#dynamic-code-ex")
+      };
+			
       $('#slides').presentation();
     });             
     </script>
@@ -101,103 +108,196 @@
         <h1>And now, let's write some jQuery!</h1>
       </div>
       
-      <div class="slide">
-        <div class="code-example" style="width:400px;">  
-        <pre class="js">function User(first, last){
-  this.name = first + " " + last;
-}
-window.name = "Resig";
-var user = User("John", name);
-assert( name == "John Resig", "The name variable is accidentally overridden." );</pre>    
-        <textarea class="code"></textarea>
-        </div>
+			
+      <div id="basic-sel-ex" class="slide">
+        <h1>The basics : selection and colouring</h1>
+				<script type="text/javascript">
+          $("#basic-sel-ex").bind("slideShowed",function(){
+           elementcache["selector-ex"].appendTo(this);
+					 elementcache["elements-ex"].appendTo(this);
+          });
+				</script>
+      </div>
+      
+			<div id="basic-sel-ex-js" class="slide">
+        <h1>Now in plain JS!</h1>
+				<span>document.getElementById("red-ex").style.setProperty("color","blue",null)</span>
+				<span>document.getElementById("red-ex").style.color="red"</span>
+        <script type="text/javascript">
+          $("#basic-sel-ex-js").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["elements-ex"].appendTo(this);
+          });
+        </script>
+      </div>
+			
+      <div id="compl-sel-ex" class="slide">
+      	<h1>Let's complicate things a bit</h1>
+				<p><span id="wif">What if I want :</span>
+				<span style="display:none;">Access to the data of the 3rd row</span>
+				<span style="display:none;">Colorize every element of the sample panel?</span>
+        <span style="display:none;">Change the value of the second input (the button) of the form?</span>
+        </p>
+        <script type="text/javascript">
+          $("#compl-sel-ex").bind("slideShowed",function(){
+           elementcache["selector-ex"].appendTo(this);
+           elementcache["elements-ex"].appendTo(this);
+          });
+					$("#wif").click(function(){
+						var $wif=$("#wif"),
+						  i=($wif.data("i")+1)%$wif.siblings("span").length;
+						$wif.siblings("span").eq($wif.data("i")).hide().end()
+						  .eq(i).fadeIn();
+							$wif.data("i",i);
+					}).data("i",-1);
+        </script>
       </div>
       
       <div class="slide">
-        <div class="code-example" style="width:400px;">  
-          <pre class="js">alert("Hello world!");</pre>    
-          <textarea id="code-hello" class="code"></textarea>
+        <h1>And in plain JS?</h1>
+        <ul>
+        	<li>Similar to plain DOM parsing : nested loops and ifs...</li>
+					<div class="box" style="width:400px;">
+          <pre class="js">var expanel=document.getElementById("elements-ex");
+var child=null;
+for(var i in expanel.children){
+  child=expanel.children[i];
+  //Handle only element childs
+  if(child.nodeType==Node.ELEMENT_NODE)
+    child.style.backgroundColor="pink";
+}</pre>
         </div>
-        <button id="hello" type="button" class="live-test">Test me</button>
+					<li>But... the HTML 5 spec contains 2 new handy methods : querySelector() querySelectorAll()</li>
+					<li>But... the HTML 5 spec is not fully implemented by everyone...</li>
+        </ul>
+
       </div>
-      
-      
+			
       <div class="slide full">
         <object id="jq-api-embed" type="text/html" class="site-embed"></object>
         <script type="text/javascript">
           $(window).load(function(){
-            $("#jq-api-embed").attr("data","http://api.jquery.com/browser");
+            //$("#jq-api-embed").attr("data","http://api.jquery.com/browser");
           });
         </script>
       </div>
       
       
       <div class="slide">
-        
-        <style type="text/css">
-          .test{
-            width:300px;
-            height:100px;
-            margin:auto;
-            border:5px solid rgba(255,255,255,0.5);
-            -moz-border-radius:10px;
-          }
-          
-          .selector-example{
-            margin-bottom:10px;
-          }
-        </style>
+       
         <h1>Selectors & CSS fun</h1>
-        
-        <div class="code-example selector-example" style="width:400px;">  
-          <pre>#test.test</pre>    
-          <textarea id="code-selector-example" class="code"></textarea>
-        </div>
-        
-        <div class="code-example selector-example" style="width:400px;">  
-          <pre class="css">background-color:red;</pre>    
-          <textarea id="code-selector-example-css" class="code"></textarea>
-        </div>
-        
-        <input type="text" id="code-selector-ex" style="display:none;"/>
-        <button id="selector-ex" type="button" class="live-test">Stylize it</button>
-                
-        <div id="test" class="test">Stylize Me!</div>
 
-        <script type="text/javascript">
-          $(window).load(function(){
-            $("#selector-ex").click(function(){
-              //poor's man css parsing :)
-              var jqCall="$('"+$("#code-selector-example").val()+"')",
-                  cssProps=$("#code-selector-example-css").val().match(/(.+:.+);/g);
-                  
-              for (var prop in cssProps) {
-                var tokens=cssProps[prop].split(":");
-                jqCall += ".css('"+tokens[0]+"','"+tokens[1].substring(0,tokens[1].length-1)+"')";
-              }
-              jqCall+=";";
-              
-              $("#code-selector-ex").val(jqCall);
-            });
-          });
-        </script>
       </div>
       
       <div id="theme-roller-demo" class="slide">
         <div id="date-picker-demo"></div>
         <script type="text/javascript">
           $(window).load(function(){
-            $("#date-picker-demo").datepicker();
-            $("#theme-roller-demo").themeRoller();
-            $('#inline_themeroller');
+           // $("#date-picker-demo").datepicker();
+           // $("#theme-roller-demo").themeRoller();
+            //$('#inline_themeroller');
           });
         </script>
       </div>
       
     </div>
+		 <!-- End of the slides -->
+		
+		
     <!-- Foooooter -->
     <div id="footer">
     </div>
+		
+		<!-- Reusable elements-->
+		<div style="display:none;">
+		
+			<div id="dynamic-selector-ex">
+				  <div class="code-example selector-example" style="width:300px;float:left;">  
+	          <pre>Enter your selector here</pre>    
+	          <textarea id="code-selector-example" class="code"></textarea>
+	        </div>
+	        
+	        <div class="code-example selector-example" style="width:300px;float:left;">  
+	          <pre class="css">Enter the CSS properties here</pre>    
+	          <textarea id="code-selector-example-css" class="code"></textarea>
+	        </div>
+	        
+	        <input type="text" id="code-selector-ex" style="display:none;"/>
+	        <button id="selector-ex" type="button" class="live-test">Stylize it</button>
+	        <p style="position:relative; clear:left;">jQuery : <span id="jquery-code"></span></p> 
+					
+	        <script type="text/javascript">
+	          $("#code-selector-ex").bind("refreshCode",function(){
+	            //poor's man css parsing :)
+	            var jqCall="$('"+$("#code-selector-example").val()+"')",
+	                cssProps=$("#code-selector-example-css").val().match(/(.+:.+);/g);
+	                
+	            for (var prop in cssProps) {
+	              var tokens=cssProps[prop].split(":");
+	              jqCall += ".css('"+tokens[0]+"','"+tokens[1].substring(0,tokens[1].length-1)+"')";
+	            }
+	            jqCall+=";";
+	            
+	            $("#code-selector-ex").val(jqCall);
+							
+							$("#jquery-code").text(jqCall);
+	          });
+	        </script>
+			</div>
+			
+			<div id="dynamic-code-ex">
+				   <div class="code-example" style="width:300px;float:left;">  
+            <pre class="js">alert("Hello World!")</pre>    
+            <textarea id="code-script-ex" class="code"></textarea>
+          </div>
+					<button id="script-ex" type="button" class="live-test">Go go go!</button>
+			</div>
+			
+			<div id="elements-ex">
+				  <p class="id">#elements-ex</p>
+	        <div id="red-ex" class="box drag red" style="width:400px; position:absolute; left:600px;top:500px;">  
+	         <p class="id">#red-ex.red</p>
+	         Relatively well positioned, draggable also
+	        </div>
+	        
+	        <div class="box blu" style="width:300px; heigth:100px; float:left">  
+	         <p class="id">.blu</p>
+	         I'm on a float!
+	        </div>
+	        
+	        <table id="tab-ex" class="table-example box">
+	          <thead>
+	            <tr><th class="id" colspan="2">#tab-ex.table-example</th></tr>
+	            <tr><th>Credit card number</th><th>Holder</th></tr>
+	          </thead>
+	          <tfoot>       
+	          </tfoot>
+	          <tbody>
+	            <tr><td>51329000654984</td><td>Mom</td></tr>
+	            <tr><td>51329000789540</td><td>Grandma</td></tr>
+	            <tr><td>30001256789540</td><td>Me</td></tr>
+	            <tr><td>78945643595645</td><td>Some guy</td></tr>
+	          </tbody>
+	        </table>
+	        
+	        <div class="box" style="width:400px; heigth:200px;">
+					  <p class="id">#fakepaypal-form-ex</p>
+	          <form id="fakepaypal-form-ex" action="">
+	            <label style="float:left;font-size:1em;">Give me $$$$</label>
+	            <input id="fakepaypal-form-amount" type="text"/></br>
+	            <input id="fakepaypal-form-amount" type="submit" value="Gimme"/>
+	          </form>
+	        </div>
+	        <script type="text/javascript">
+	          $(window).load(function(){
+	            $("#fakepaypal-form-ex").submit(function(){
+	              alert("Thanks for your "+$("#fakepaypal-form-amount").val()+" $!");
+	              return false;
+	            });
+	          });
+	        </script> 
+	        </div>
+			</div>
   </body>
 </html>
 

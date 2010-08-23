@@ -39,8 +39,8 @@
       //Control the changing of the slide
       $presentation.changeSlide = function(newSlide) {
       
-      	$presentation.visibleSlide = $presentation.slides.filter(':visible');
-        $presentation.slideToShow = $presentation.slides.filter(':nth-child('+newSlide+')')
+      	$presentation.visibleSlide = $presentation.slides.filter(':visible').trigger("slideHidden");
+        $presentation.slideToShow = $presentation.slides.filter(':nth-child('+newSlide+')').trigger("slideShowed");
       
       	switch ($presentation.options.transition) {
         	case 'show/hide':
@@ -56,6 +56,8 @@
 						$presentation.visibleSlide.hide();
 						$presentation.slideToShow.fadeIn(500)
 				}
+				
+				//Refresh the page counter
         $presentation.find('.'+$presentation.options.pageCountClass).text( ((newSlide<10)?"0":"") + newSlide + "/" + (($presentation.slides.length<10)?"0":"") + $presentation.slides.length);
         
        /* $presentation.find('.'+$presentation.options.pagerClass).children('.current').removeClass('current');
@@ -161,6 +163,7 @@
         //Hide everything except the hash or the first
         if($presentation.currentHash) {
           $presentation.slides.filter(':not(:nth-child('+$presentation.currentHash+'))').hide();
+					$presentation.slides.filter(':nth-child('+$presentation.currentHash+')').trigger("slideShowed");
         } else {
           $presentation.slides.filter(':not(:first)').hide();
         }

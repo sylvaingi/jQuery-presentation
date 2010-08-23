@@ -13,7 +13,6 @@ jQuery(window).load(function(){
                 e.stopImmediatePropagation();
                 e.preventDefault();
               }
-              this.rows=this.value.split('\n').length+1;
             }
             else {
               if (e.keyCode == 8) {
@@ -32,27 +31,15 @@ jQuery(window).load(function(){
                   e.preventDefault();
                 }
             }
-            this.rows=this.value.split('\n').length;
         }
     }).keyup(function(e){
         e.stopImmediatePropagation();
     }).keypress(function(e){
         e.stopImmediatePropagation();
     });
-    
-    jQuery("pre").click(function(e){
-        var $this = $(this);
-        if ($this.parent().data("dragged")) {
-            $this.parent().data("dragged", false);
-            return false;
-        }
-        $this.hide().next("textarea.code").show().focus().parent("div.code-example").css({
-            "background-color": "white"
-        });
-    });
-    
-    jQuery("textarea.code").blur(function(){
-        $(this).hide().prev("pre").html($(this).val()).chili().show().parent("div.code-example").css({
+        
+    jQuery("div.code-example>textarea.code").blur(function(){
+        $(this).hide().prev("pre").html($(this).val()+" ").chili().show().parent("div.code-example").css({
             "background-color": ""
         });
     });
@@ -63,15 +50,30 @@ jQuery(window).load(function(){
         
         $this.html(code);
         
-        $this.next("textarea.code").val(code).css({
-            "width": $this.innerWidth() + "px"
-        }).attr("rows",code.split("\n").length);
-        
+				if ($this.is("div.code-example>pre")) {
+					$this.next("textarea.code").val(code).css({
+						"width": $this.parent().css("width")
+					}).autogrow({
+						min_height: $this.css('line-height'),
+						expandTolerance: 0
+					}).hide();
+		    }
+				
         $this.chili();
-        
+    }).filter("div.code-example>pre").click(function(e){
+        var $this = $(this);
+        if ($this.parent().data("dragged")) {
+            $this.parent().data("dragged", false);
+            return false;
+        }
+        $this.hide()
+          .next("textarea.code").show().focus()
+          .parent("div.code-example").css({
+            "background-color": "white"
+        });
     });
     
-    $("div.code-example").draggable({
+    $("div.drag").draggable({
         containment: "parent",
         stop: function(e){
             $(e.target).data("dragged", true);
@@ -80,7 +82,7 @@ jQuery(window).load(function(){
     
     jQuery("button.live-test").click(function(){
         try {
-            (new Function(jQuery("#code-" + this.id).val()))();
+            (new Function(jQuery("#code-" + this.id).trigger("refreshCode").val()))();
         } 
         catch (e) {
             alert(e.message);

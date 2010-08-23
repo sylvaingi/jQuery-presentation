@@ -37,7 +37,7 @@ a:hover { text-decoration: none; }
 a:active {}
 	
 /*Text*/
-	p, ol, ul, table { margin: 0 0 30px; }
+	p, ol, ul, table { margin-bottom:10px; }
 	ul { list-style: square; }
 	li { /*border-bottom: 1px solid rgba(147,204,198,0.2);*/ padding: 15px 0; }
 	li:first-child { padding-top: 0; }
@@ -80,17 +80,18 @@ label { font-weight: bold; }
 .page-count{ bottom: 0;left: 20px;font-size:18px;position: fixed; z-index: 100;font-weight:bold;}
 
 /*Code examples*/
-.code-example{
-  border:5px solid rgba(255,255,255,0.5);
+.box,.code-example{
+  border:3px solid rgba(255,255,255,0.5);
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
   padding:10px;
   background-color:#313131;
-}
-
-.code-example pre, .code-example textarea{
-  font-size:12px;
+	margin:5px;
+	font-size:12px;
   line-height:14px;
+}
+.code-example{
+	border-color:#dde070;
 }
 .code-example pre{
   word-wrap: break-word;
@@ -107,6 +108,23 @@ label { font-weight: bold; }
   border:0px;
 }
 
+.table-example{
+   border:groove 8px rgba(255,255,255,0.5);
+  -moz-border-radius:10px;
+	border-collapse:separate;
+}
+
+.table-example td,th{
+   border:2px solid rgba(255,255,255,0.5);
+	 border-collapse:collapse;
+	 padding:3px;
+}
+.id{
+	font-size:11px;
+	font-weight:bold;
+	color:#ff8080;
+	line-height:14px;
+}
 /*Embedded site*/
 .site-embed{
   width:80%;
@@ -117,4 +135,12 @@ label { font-weight: bold; }
 
 .full .site-embed{
   width:100%;
+}
+
+#dynamic-code-ex,#dynamic-selector-ex{
+	overflow:auto;
+	padding-bottom:20px; 
+	margin-bottom:20px; 
+	border-top:1px solid rgba(255,255,255,0.5);
+	border-bottom:1px solid rgba(255,255,255,0.5);
 }
