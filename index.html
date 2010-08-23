@@ -16,7 +16,8 @@
     <script type="text/javascript" src="script/jquery.chili-2.2.js"></script>
     <script type="text/javascript" src="script/recipes.js"></script>
     <script type="text/javascript" src="script/theme-roller-file.js"></script>
-    
+    <script type="text/javascript" src="script/jquery.lastfm.js"></script>
+
     
     <script type="text/javascript">
     $(document).ready(function(){
@@ -25,14 +26,17 @@
         "elements-ex" : $("#elements-ex"),
 				"dynamic-code-ex":$("#dynamic-code-ex")
       };
-			
+    }); 
+    $(window).load(function(){
       $('#slides').presentation();
-    });             
+    });            
     </script>
     
     <link rel="stylesheet" type="text/css" href="style/screen.css" />
     <link rel="stylesheet" type="text/css" href="style/recipes.css"/>
     <link rel="stylesheet" type="text/css" href="style/smoothness/jquery-ui-1.8.4.custom.css"/>
+    <link rel="stylesheet" type="text/css" href="style/lastfm.css"/>
+
   </head>
   <body>
     <div id="slides">
@@ -169,10 +173,89 @@ for(var i in expanel.children){
         </div>
 					<li>But... the HTML 5 spec contains 2 new handy methods : querySelector() querySelectorAll()</li>
 					<li>But... the HTML 5 spec is not fully implemented by everyone...</li>
+          <li>And officialy it is still a draft</li>
         </ul>
 
       </div>
 			
+      <div class="slide">
+        <h1>AJAX?</h1>
+        <ul>
+          <li>So called pillar of the "Web 2.0"</li>
+          <li>Allow data exchange asynchronously, enable richer interactions</li>
+          <li>Fun fact : introduced by MS in IE 5</li>
+          <li>Standard de facto, but the W3C is normalizing</li>
+        </ul>
+        <img src="img/ajax.png" alt="girlsheartit" style="float:right; margin-left:20px;"/>
+        <img src="img/ajax2.jpg" alt="girlsheartit" style="float:right;"/>
+      </div>
+      
+      <div id="first-ajax" class="slide">   
+        <h1>AJAX : my first steps</h1>
+        <div id="receive-box" class="box" style="width:400px;"><p class="id">#receive-box</p><pre>Nothing received yet</pre></div>
+        <img src="img/thumbs_up.png" alt="nice job!" style="margin:20px auto;display:none;"/>
+        <script type="text/javascript">
+          $("#first-ajax").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].insertAfter("#first-ajax>h1")
+            .find("pre").text($("#first-ajax>pre").text()).end()
+            .find("#script-ex").click(function(){
+               $("#first-ajax img").css("display","block");
+            });
+          });
+        </script>
+        <pre style="display:none;">$.get("res/useless.xml",function(dataReceived){
+  $("#receive-box>pre").text(dataReceived);
+},'text');</pre>
+      </div>
+
+      <div id="second-ajax" class="slide">   
+        <h1>AJAX : grab last.fm data</h1>
+        <div id="receive-box-2" class="box" style="width:600px;float:left;"><p class="id">#receive-box-2</p><pre style="word-wrap: break-word;white-space:pre-wrap;">Nothing received yet</pre></div>
+        <img src="img/thumbs_up.png" alt="nice job!" style="margin:20px auto;display:none;float:right;"/>
+        <script type="text/javascript">
+          $("#second-ajax").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].insertAfter("#second-ajax>h1")
+            .find("pre").text($("#second-ajax>pre").text()).end()
+            .find("#script-ex").click(function(){
+               $("#second-ajax img").css("display","block");
+            });
+          });
+        </script>
+        <pre style="display:none;">$.getJSON('http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=bendingunit00&api_key=96e0589327a3f120074f74dbc8ec6443&limit=1&format=json&callback=?',
+function(jsonData){
+  $("#receive-box-2>pre").text(JSON.stringify(jsonData));
+});
+   </pre>
+      </div>
+           
+      <div class="slide">
+        <h1>jQuery plugins</h1>
+      </div>
+      
+      <div id="plug-lfm" class="slide">
+        <h1>jQuery plugins : lastFm</h1>
+        <div id="lastfm">
+          <dl id="lfm-tpl "class="lfm">
+              <a href="#">
+              <dt class="lfm_art">
+                  <img src="img/lfm_overlay.png" alt="CD" class="lfm_overlay" />
+              </dt>
+              </a>
+              <dd class="lfm_song"></dd>
+              <dd class="lfm_artist"></dd>
+              <dd class="lfm_album"></dd>
+              <dd class="lfm_cur"></dd>
+          </dl>
+        </div>
+        <script type="text/javascript">
+          $("#plug-lfm").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].insertAfter("#plug-lfm>h1")
+            .find("pre").text($("#plug-lfm>pre").text());
+          });
+        </script>
+        <pre style="display:none;">$("#lastfm").lastFM({number:5});</pre>
+      </div>
+
       <div class="slide full">
         <object id="jq-api-embed" type="text/html" class="site-embed"></object>
         <script type="text/javascript">
@@ -183,11 +266,7 @@ for(var i in expanel.children){
       </div>
       
       
-      <div class="slide">
-       
-        <h1>Selectors & CSS fun</h1>
 
-      </div>
       
       <div id="theme-roller-demo" class="slide">
         <div id="date-picker-demo"></div>
@@ -245,14 +324,14 @@ for(var i in expanel.children){
 	        </script>
 			</div>
 			
-			<div id="dynamic-code-ex">
-				   <div class="code-example" style="width:300px;float:left;">  
+      <div id="dynamic-code-ex">
+           <div class="code-example" style="width:400px;float:left;">  
             <pre class="js">alert("Hello World!")</pre>    
             <textarea id="code-script-ex" class="code"></textarea>
           </div>
-					<button id="script-ex" type="button" class="live-test">Go go go!</button>
-			</div>
-			
+          <button id="script-ex" type="button" class="live-test">Go go go!</button>
+      </div>
+      
 			<div id="elements-ex">
 				  <p class="id">#elements-ex</p>
 	        <div id="red-ex" class="box drag red" style="width:400px; position:absolute; left:600px;top:500px;">  

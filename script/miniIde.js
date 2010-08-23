@@ -44,35 +44,41 @@ jQuery(window).load(function(){
         });
     });
     
-    
-    jQuery("pre").each(function(index, element){
-        var $this = $(this), code = $this.html().replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/(^|\n) /g, "$1").replace(/ ($|\n)/g, "$1");
-        
-        $this.html(code);
-        
-				if ($this.is("div.code-example>pre")) {
-					$this.next("textarea.code").val(code).css({
-						"width": $this.parent().css("width")
-					}).autogrow({
-						min_height: $this.css('line-height'),
-						expandTolerance: 0
-					}).hide();
-		    }
-				
-        $this.chili();
-    }).filter("div.code-example>pre").click(function(e){
-        var $this = $(this);
-        if ($this.parent().data("dragged")) {
-            $this.parent().data("dragged", false);
-            return false;
-        }
-        $this.hide()
-          .next("textarea.code").show().focus()
-          .parent("div.code-example").css({
-            "background-color": "white"
-        });
+    jQuery("div.slide").bind("slideShowed",function(){
+      
+      jQuery("pre:not(.rendered)",this).each(function(index, element){
+          var $this = $(this), code = $this.html().replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/(^|\n) /g, "$1").replace(/ ($|\n)/g, "$1");
+          
+          $this.html(code).chili();
+
+  				if ($this.is("div.code-example>pre")) {
+  					$this.next("textarea.code").val(code).css({
+  						"width": $this.parent().css("width")
+  					}).autogrow({
+  						min_height: $this.css('line-height'),
+  						expandTolerance: 0
+  					}).hide();
+  		    }
+  				else{
+            $(this).addClass("rendered")
+          }
+          
+          
+      }).filter("div.code-example>pre").click(function(e){
+          var $this = $(this);
+          if ($this.parent().data("dragged")) {
+              $this.parent().data("dragged", false);
+              return false;
+          }
+          $this.hide()
+            .next("textarea.code").show().focus()
+            .parent("div.code-example").css({
+              "background-color": "white"
+          });
+      });
+      
     });
-    
+ 
     $("div.drag").draggable({
         containment: "parent",
         stop: function(e){

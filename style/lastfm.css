@@ -1,0 +1,72 @@
+/* ---------------------------------------------
+    LASTFM.CSS
+-----------------------------------------------*/
+#lastfm a img{
+	text-decoration:none;
+	border: none;
+}
+#lastfm{
+color:#000000;
+font:62.5% Helvetica,Verdana,Arial,sans-serif;
+}
+
+#lastfm dl{
+    position:relative;
+    float:left;
+    width:140px;
+    height:64px;
+    padding:8px 8px 8px 80px;
+    margin:0 20px 20px 0;
+    -moz-border-radius:10px;
+    -webkit-border-radius:10px;
+background:none repeat scroll 0 0 #1A1A1A;
+border:groove 8px rgba(255,255,255,0.5);
+}
+
+#lastfm dl:hover,
+#lastfm dl.hover{
+    border-color:rgba(255,255,255,0.9);
+    cursor:pointer;
+    }
+#lastfm dl dt{
+    position:absolute;
+    left:8px;
+    top:8px;
+    width:64px;
+    height:64px;
+    }
+#lastfm dl dt a{
+    position:absolute;
+    top:0;
+    left:0;
+    width:64px;
+    height:64px;
+    z-index:100;
+    }
+
+#lastfm dl dt a:hover{
+    background:none;
+    }
+ #lastfm dl dt img{
+     width:64px;
+    height:64px;
+ }
+ #lastfm dl dd{
+     white-space:nowrap;
+    overflow:hidden;
+	}
+#lastfm dl dd.lfm_song{
+  color:#FFFFFF;
+    font-weight:bold;
+    font-size:12px;
+    padding-bottom:6px;
+}
+#lastfm dl dd.lfm_cur{
+	padding-top:6px;
+}
+#lastfm dl dd.lfm_artist,
+#lastfm dl dd.lfm_album,
+#lastfm dl dd.lfm_cur{
+    color:#999;
+    font-size:10px;
+}
