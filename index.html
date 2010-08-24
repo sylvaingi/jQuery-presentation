@@ -61,60 +61,64 @@
         <ul>
            <li>Lightweight (24kb minified and gzipped), Cross-browser JavaScript library</li>
            <li>Aimed to increase productivity by offering an extended set of shorthand functions.</li>
+					 <li>Open Source (MIT or GPL license)</li>
            <li>Created by John Resig in 2006, currently working @ Mozilla Corp</li>
-           <li>Open Source (MIT or GPL license)</li>
+           <li>Current version : 1.4.2</li>
         </ul>
       </div>
       
       <div class="slide">
-        <h1>Some numbers...</h1>
+        <h1>Why jQuery?</h1>
         <ul>
-           <li>Current version: 1.4.2 (3x speedup since last year version) </li>
-           <li>Used by 35% of the 10.000 top sites</li>
-           <li>69.4% "market share"</li>
-        </ul>
-      </div>
-      
-      <div class="slide">
-        <h1>Why using jQuery</h1>
-        <ul>
-           <li>We have the standards issued by the W3C</li>
-           <li>JavaScript, DOM, CSS implementations of the standards can differ (right IE?)</li>
-           <li>To avoid writing specific hacks for some browsers : need an abstraction library</li>
+           <li>100% compatible with IE 6+,Firefox 2+, Safari 3+,Opera 9+ and Chrome</li>
+        	 <li>Simple API</li>
+           <li>Great documentation</li>
+           <li>Lots of plugins</li>
+					 <li>Big community</li>
         </ul>
         <img style="display: block; width: 130px; position: relative; float: right; top: -205px;" src="img/logos/ie-devil_03.png" alt="evil IE">      
-      </div>
+        <div style="height:150px;margin:auto; text-align:center;">
+				  <img src="img/logos/chrome.png"  style="height:150px;"/>
+					<img src="img/logos/opera.png"  style="height:150px;"/>
+					<img src="img/logos/safari.png"  style="height:150px;"/>
+					<img src="img/logos/firefox.png"  style="height:150px;"/>
+				</div>
+			</div>
       
-      <div class="slide">
-        <h1>Inside jQuery</h1>
-        <ul>
-           <li>Selectors & traversing</li>
-           <li>Manipulation</li>
-           <li>Styling(CSS)</li>
-           <li>Events</li>
-           <li>Effects</li>
-           <li>AJAX</li>
-           <li>Utilities</li>
-        </ul>
+			<div class="slide">
+				<h1>Basics, find something : Selectors</h1>
+			  <p>The $ function, your new friend : </p>
+				<p>$("body") <span class="light-grey">get &lt;body&gt; element</span></p>
+				<p>$("#someid") <span class="light-grey">get element with id someid</span></p>
+				<p>$("div.myclass") <span class="light-grey">get all &lt;div&gt; with class my class</span></p>
+        <p>$("input[name=toto]") <span class="light-grey">get all input with toto name</span></p>
+				<p>$("tr:first") <span class="light-grey">get 1st row</span></p>
+				<p>$("#scroll-panel>div.widget:last-child") <span class="light-grey">get the last &lt;div&gt; with class widget within scroll-panel</span></p>
+			</div>
+			
+			<div class="slide">
+        <h1>Basics, do something with it : Methods</h1>
+        <p>$(...).css("background","pink")</p>
+        <p>$(...).fadeIn()</p>
+        <p>$(...).append("&lt;p&gt;Bonjour le monde&lt;/p&gt;")</p>
+				<p>$(...).click(function(){alert("click");})</p>
+        <ul><li>Bonus : you can chain the calls : $(...).slideDown().val("slider")</li>
+				<li>Also : one method, many uses :</li>
+				<ul>
+					<li>$("#myinput").val()</li>
+				  <li>$("#myinput").val("zero")</li>
+				  <li>$("#myinput").val(function(index,value){})</li>
+				</ul>
+				</ul>
+				</ul>
+      </div>  
+			  
+			<div class="slide interlude">
+        <h1>Lets see it live!</h1>
       </div>
-      
-      <div class="slide">
-        <h1>Alternatives to jQuery</h1>
-        <ul>
-           <li>Prototype</li>
-           <li>MooTools</li>
-           <li>Script.aculo.us</li>
-           <li>YUI Library</li>
-        </ul>
-      </div>
-      
-      <div class="interlude slide">
-        <h1>And now, let's write some jQuery!</h1>
-      </div>
-      
 			
       <div id="basic-sel-ex" class="slide">
-        <h1>The basics : selection and colouring</h1>
+        <h1>Selectors</h1>
 				<script type="text/javascript">
           $("#basic-sel-ex").bind("slideShowed",function(){
            elementcache["selector-ex"].appendTo(this);
@@ -125,11 +129,9 @@
       
 			<div id="basic-sel-ex-js" class="slide">
         <h1>Now in plain JS!</h1>
-				<span>document.getElementById("red-ex").style.setProperty("color","blue",null)</span>
-				<span>document.getElementById("red-ex").style.color="red"</span>
         <script type="text/javascript">
           $("#basic-sel-ex-js").bind("slideShowed",function(){
-           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["dynamic-code-ex"].appendTo(this).find("pre").text("document.getElementById('red-ex').style.setProperty('color','blue',null)");
            elementcache["elements-ex"].appendTo(this);
           });
         </script>
@@ -157,11 +159,11 @@
         </script>
       </div>
       
-      <div class="slide">
+			<div class="slide">
         <h1>And in plain JS?</h1>
         <ul>
-        	<li>Similar to plain DOM parsing : nested loops and ifs...</li>
-					<div class="box" style="width:400px;">
+          <li>Similar to plain DOM parsing : nested loops and ifs...</li>
+          <div class="box" style="width:600px;">
           <pre class="js">var expanel=document.getElementById("elements-ex");
 var child=null;
 for(var i in expanel.children){
@@ -171,11 +173,100 @@ for(var i in expanel.children){
     child.style.backgroundColor="pink";
 }</pre>
         </div>
-					<li>But... the HTML 5 spec contains 2 new handy methods : querySelector() querySelectorAll()</li>
-					<li>But... the HTML 5 spec is not fully implemented by everyone...</li>
+          <li>But... the HTML 5 spec contains 2 new handy methods : querySelector() querySelectorAll()</li>
+          <li>But... the HTML 5 spec is not fully implemented by everyone...</li>
           <li>And officialy it is still a draft</li>
         </ul>
+      </div>
+			     
+      <div class="slide interlude">
+        <h1>DOM manipulation</h1>
+      </div>
+			
+		  <div class="slide">
+        <h1>DOM manipulation</h1>
+				<ul></ul>
+      </div>
+			
+			<div id="dom-ex" class="slide">
+        <h1>DOM demo</h1>
+        <script type="text/javascript">
+          $("#dom-ex").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["elements-ex"].appendTo(this);
+          });
+        </script>
+      </div>
+			
+			<div class="slide interlude">
+        <h1>Attributes</h1>
+      </div>
+			
+      <div class="slide">
+        <h1>Attributes manipulation</h1>
+				<p>
+				<ul>
+					<li>.attr("id") .att("id","newid")</li>
+					<li>.html() .html("&lt;br/&gt;")</li>
+					<li>.text() .text("Some replacement")</li>
+          <li>.val() .val("your new value")</li>
+          <li>.css() .css("-moz-border-radius","10px")</li>
+				</ul>
+				</p>
+      </div>		
+				
+			<div id="attr-ex" class="slide">
+        <h1>Attributes demo</h1>
+        <script type="text/javascript">
+          $("#attr-ex").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["elements-ex"].appendTo(this);
+          });
+        </script>
+      </div>
+      
+			
 
+			<div class="slide interlude">
+        <h1>Events</h1>
+      </div>
+			
+			<div class="slide">
+				<h1>Events listeners</h1>
+				<ul>
+					<li>Good ol' method: onchange, onclick... attributes</li>
+					<li>Intrusive code, mix between structure and behavior</li>
+					<li>Better way : using DOM event listeners</li>
+					<li>jQuery relies on it, and adds live listeners and custom events:
+					  <ul>
+					     <li>click</li>
+							 <li>change</li>
+							 <li>keypress</li>
+							 <li>submit</li>
+						</ul>
+					</li>
+					<li>     
+					<div class="box" style="width:400px;">
+            <pre class="js">$(document).ready(function(){
+  //Magic happens here
+});</pre></div>
+          </li>
+				</ul>
+      </div>
+
+			
+			<div id="events-ex" class="slide">
+        <h1>Events listeners</h1>
+        <script type="text/javascript">
+          $("#events-ex").bind("slideShowed",function(){
+           elementcache["dynamic-code-ex"].appendTo(this).find("pre").text("Write your listeners here");
+           elementcache["elements-ex"].appendTo(this);
+          });
+        </script>
+      </div>
+			
+			<div class="slide interlude">
+        <h1>Ajax</h1>
       </div>
 			
       <div class="slide">
@@ -192,7 +283,7 @@ for(var i in expanel.children){
       
       <div id="first-ajax" class="slide">   
         <h1>AJAX : my first steps</h1>
-        <div id="receive-box" class="box" style="width:400px;"><p class="id">#receive-box</p><pre>Nothing received yet</pre></div>
+        <div id="receive-box" class="box" style="width:600px;"><p class="id">#receive-box</p><pre>Nothing received yet</pre></div>
         <img src="img/thumbs_up.png" alt="nice job!" style="margin:20px auto;display:none;"/>
         <script type="text/javascript">
           $("#first-ajax").bind("slideShowed",function(){
@@ -209,7 +300,7 @@ for(var i in expanel.children){
       </div>
 
       <div id="second-ajax" class="slide">   
-        <h1>AJAX : grab last.fm data</h1>
+        <h1>AJAX : grab my last.fm data</h1>
         <div id="receive-box-2" class="box" style="width:600px;float:left;"><p class="id">#receive-box-2</p><pre style="word-wrap: break-word;white-space:pre-wrap;">Nothing received yet</pre></div>
         <img src="img/thumbs_up.png" alt="nice job!" style="margin:20px auto;display:none;float:right;"/>
         <script type="text/javascript">
@@ -228,7 +319,7 @@ function(jsonData){
    </pre>
       </div>
            
-      <div class="slide">
+      <div class="slide interlude">
         <h1>jQuery plugins</h1>
       </div>
       
@@ -256,25 +347,96 @@ function(jsonData){
         <pre style="display:none;">$("#lastfm").lastFM({number:5});</pre>
       </div>
 
-      <div class="slide full">
-        <object id="jq-api-embed" type="text/html" class="site-embed"></object>
-        <script type="text/javascript">
-          $(window).load(function(){
-            //$("#jq-api-embed").attr("data","http://api.jquery.com/browser");
-          });
-        </script>
-      </div>
-      
-      
 
       
-      <div id="theme-roller-demo" class="slide">
-        <div id="date-picker-demo"></div>
+
+      <div class="slide interlude">
+        <h1><img src="img/logos/jQuery__UI_logo_color_onwhite.png" alt="jQuery UI"/></h1>
+      </div>
+			
+      <div id="jui-demo" class="slide" style="font-size:12px;">
+			  <h1>jQuery UI in action</h1>
+        <div id="jui-demo-content" style="font-size:12px;">
+				
+	        <div id="tabs-ex" style="width:500px; float:left;margin:15px;">
+	          <ul>
+	            <li><a href="#tabs-1">Nunc tincidunt</a></li>
+	            <li><a href="#tabs-2">Proin dolor</a></li>
+	            <li><a href="#tabs-3">Aenean lacinia</a></li>
+	          </ul>
+	          <div id="tabs-1">
+	            <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+	          </div>
+	          <div id="tabs-2">
+	            <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+	          </div>
+	          <div id="tabs-3">
+	            <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
+	            <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+	          </div>
+	        </div>
+	        <div id="date-picker-demo" style="width:500px; float:left;margin:15px;"></div>
+
+					<div id="dialog-ex" title="Basic dialog">
+					  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+					</div>
+					
+			    <div id="radio-ex" style="clear:both;margin:15px;">
+			      <input type="radio" id="radio1" name="radio" /><label for="radio1">Choice 1</label>
+			      <input type="radio" id="radio2" name="radio" checked="checked" /><label for="radio2">Choice 2</label>
+			      <input type="radio" id="radio3" name="radio" /><label for="radio3">Choice 3</label>
+			    </div>
+							
+					<div style="width:500px; float:left;margin:15px;">
+						<p>
+						<label for="amount" >Price range:</label>
+						<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+						</p>
+						<div id="slider-range"></div>
+					</div>
+					
+					<div id="theme-roller-demo"></div>
+					
+	      </div>
+        
+        <script type="text/javascript">
+					$("#jui-demo").bind("slideShowed",function(){
+						$("#date-picker-demo").datepicker();
+						$("#theme-roller-demo").themeRoller();
+						$("#tabs-ex").tabs();
+						$("#dialog-ex").dialog({
+							position:['middle','bottom']
+						});
+						$("#radio-ex").buttonset();
+						$("#slider-range").slider({
+							range: true,
+							min: 0,
+							max: 500,
+							values: [75, 300],
+							slide: function(event, ui) {
+							  $("#amount").val('$' + ui.values[0] + ' - $' + ui.values[1]);
+							}
+						});
+						$("#amount").val('$' + $("#slider-range").slider("values", 0) + ' - $' + $("#slider-range").slider("values", 1));
+          }).bind("slideHidden",function(){
+						$("#dialog-ex").dialog("close");
+					});
+        </script>
+      </div>
+			
+			<div class="slide interlude">
+        <h1>Push Manager</h1>
+      </div>
+			
+			<div id="psm-ex" class="slide full">
+        <object id="psm-embed" type="text/html" class="site-embed"></object>
         <script type="text/javascript">
           $(window).load(function(){
-           // $("#date-picker-demo").datepicker();
-           // $("#theme-roller-demo").themeRoller();
-            //$('#inline_themeroller');
+					 $("#psm-ex").bind("slideShowed",function(){
+            $("#psm-embed").attr("data","http://bespin:8380/pm_scenariodesign_webtool/");
+						}).bind("slideHidden",function(){
+            $("#psm-embed").attr("data","");
+          })
           });
         </script>
       </div>

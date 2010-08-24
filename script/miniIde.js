@@ -49,7 +49,7 @@ jQuery(window).load(function(){
       jQuery("pre:not(.rendered)",this).each(function(index, element){
           var $this = $(this), code = $this.html().replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/(^|\n) /g, "$1").replace(/ ($|\n)/g, "$1");
           
-          $this.html(code).chili();
+          $this.html(code);
 
   				if ($this.is("div.code-example>pre")) {
   					$this.next("textarea.code").val(code).css({
@@ -57,13 +57,15 @@ jQuery(window).load(function(){
   					}).autogrow({
   						min_height: $this.css('line-height'),
   						expandTolerance: 0
-  					}).hide();
+  					}).hide().end()
+						.chili();
   		    }
   				else{
+		          $this.chili();
             $(this).addClass("rendered")
           }
           
-          
+					
       }).filter("div.code-example>pre").click(function(e){
           var $this = $(this);
           if ($this.parent().data("dragged")) {
