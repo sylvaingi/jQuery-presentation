@@ -39,7 +39,7 @@ jQuery(window).load(function(){
     });
         
     jQuery("div.code-example>textarea.code").blur(function(){
-        $(this).hide().prev("pre").html($(this).val()+" ").chili().show().parent("div.code-example").css({
+        $(this).hide().prev("pre").text($(this).val()+" ").chili().show().parent("div.code-example").css({
             "background-color": ""
         });
     });
@@ -57,8 +57,8 @@ jQuery(window).load(function(){
   					}).autogrow({
   						min_height: $this.css('line-height'),
   						expandTolerance: 0
-  					}).hide().end()
-						.chili();
+  					}).hide();
+            $this.chili();
   		    }
   				else{
 		          $this.chili();

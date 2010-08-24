@@ -79,7 +79,7 @@ label { font-weight: bold; }
 #title-slide img{margin:15% auto 10px auto;display:block;} 
  
 /*Page count*/
-.page-count{ bottom: 0;left: 20px;font-size:18px;position: fixed; z-index: 100;font-weight:bold;}
+.page-count{ bottom: 10px;left: 20px;font-size:18px;position: fixed; z-index: 100;font-weight:bold;}
 
 /*Code examples*/
 .box,.code-example{

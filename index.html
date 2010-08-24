@@ -44,7 +44,7 @@
       <div id="title-slide" class="slide">
         <img alt="jQuery logo" src="img/logos/jQuery_logo_color_onwhite.png"/>
         <h1>The JavaScript utility library</h1>
-        <h2>Sylvain Gizard - Gemalto</h2>
+        <h2>Sylvain Gizard</h2>
       </div>
       
       <div class="slide">
@@ -71,7 +71,7 @@
         <h1>Why jQuery?</h1>
         <ul>
            <li>100% compatible with IE 6+,Firefox 2+, Safari 3+,Opera 9+ and Chrome</li>
-        	 <li>Simple API</li>
+        	 <li>Simple and FAST by design</li>
            <li>Great documentation</li>
            <li>Lots of plugins</li>
 					 <li>Big community</li>
@@ -88,20 +88,23 @@
 			<div class="slide">
 				<h1>Basics, find something : Selectors</h1>
 			  <p>The $ function, your new friend : </p>
+        <br/>
 				<p>$("body") <span class="light-grey">get &lt;body&gt; element</span></p>
 				<p>$("#someid") <span class="light-grey">get element with id someid</span></p>
-				<p>$("div.myclass") <span class="light-grey">get all &lt;div&gt; with class my class</span></p>
+				<p>$("div.myclass") <span class="light-grey">get all &lt;div&gt; with class myclass</span></p>
         <p>$("input[name=toto]") <span class="light-grey">get all input with toto name</span></p>
 				<p>$("tr:first") <span class="light-grey">get 1st row</span></p>
 				<p>$("#scroll-panel>div.widget:last-child") <span class="light-grey">get the last &lt;div&gt; with class widget within scroll-panel</span></p>
-			</div>
+			  <br/>
+        <p>Fully CSS3 compliant, and extensible!</p>
+      </div>
 			
 			<div class="slide">
         <h1>Basics, do something with it : Methods</h1>
         <p>$(...).css("background","pink")</p>
         <p>$(...).fadeIn()</p>
         <p>$(...).append("&lt;p&gt;Bonjour le monde&lt;/p&gt;")</p>
-				<p>$(...).click(function(){alert("click");})</p>
+				<p>$(...).click(function(){alert("click");})</p><br/>
         <ul><li>Bonus : you can chain the calls : $(...).slideDown().val("slider")</li>
 				<li>Also : one method, many uses :</li>
 				<ul>
@@ -121,42 +124,10 @@
         <h1>Selectors</h1>
 				<script type="text/javascript">
           $("#basic-sel-ex").bind("slideShowed",function(){
-           elementcache["selector-ex"].appendTo(this);
+           elementcache["selector-ex"].appendTo(this).find("pre:eq(1)").text("Put the CSS style here");;
 					 elementcache["elements-ex"].appendTo(this);
           });
 				</script>
-      </div>
-      
-			<div id="basic-sel-ex-js" class="slide">
-        <h1>Now in plain JS!</h1>
-        <script type="text/javascript">
-          $("#basic-sel-ex-js").bind("slideShowed",function(){
-           elementcache["dynamic-code-ex"].appendTo(this).find("pre").text("document.getElementById('red-ex').style.setProperty('color','blue',null)");
-           elementcache["elements-ex"].appendTo(this);
-          });
-        </script>
-      </div>
-			
-      <div id="compl-sel-ex" class="slide">
-      	<h1>Let's complicate things a bit</h1>
-				<p><span id="wif">What if I want :</span>
-				<span style="display:none;">Access to the data of the 3rd row</span>
-				<span style="display:none;">Colorize every element of the sample panel?</span>
-        <span style="display:none;">Change the value of the second input (the button) of the form?</span>
-        </p>
-        <script type="text/javascript">
-          $("#compl-sel-ex").bind("slideShowed",function(){
-           elementcache["selector-ex"].appendTo(this);
-           elementcache["elements-ex"].appendTo(this);
-          });
-					$("#wif").click(function(){
-						var $wif=$("#wif"),
-						  i=($wif.data("i")+1)%$wif.siblings("span").length;
-						$wif.siblings("span").eq($wif.data("i")).hide().end()
-						  .eq(i).fadeIn();
-							$wif.data("i",i);
-					}).data("i",-1);
-        </script>
       </div>
       
 			<div class="slide">
@@ -185,14 +156,21 @@ for(var i in expanel.children){
 			
 		  <div class="slide">
         <h1>DOM manipulation</h1>
-				<ul></ul>
+				<ul>
+				  <li>Access the surroundings</li>
+          <ul><li>.children(), .find(), .parent(), .parents(), .siblings(), .prev(), .next()</li></ul>
+          <li>Modify the DOM node</li>
+          <ul><li>.wrap(), .append(), .prepend(), .before(), .after(), .remove(), .empty()</li></ul>
+          <li>Reduce the set of matched elements</li>
+          <ul><li>.filter(), .eq(), .is(), .has(), .hasClass(), .not()</li></ul>
+				</ul>
       </div>
 			
 			<div id="dom-ex" class="slide">
         <h1>DOM demo</h1>
         <script type="text/javascript">
           $("#dom-ex").bind("slideShowed",function(){
-           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["dynamic-code-ex"].appendTo(this).find("pre").text("Manipulate my DOM");;
            elementcache["elements-ex"].appendTo(this);
           });
         </script>
@@ -206,11 +184,12 @@ for(var i in expanel.children){
         <h1>Attributes manipulation</h1>
 				<p>
 				<ul>
-					<li>.attr("id") .att("id","newid")</li>
+					<li>.attr("id") .attr("id","newid")</li>
 					<li>.html() .html("&lt;br/&gt;")</li>
 					<li>.text() .text("Some replacement")</li>
           <li>.val() .val("your new value")</li>
           <li>.css() .css("-moz-border-radius","10px")</li>
+					<li>.addClass("newClass") .removeClass("deleteMe")</li>
 				</ul>
 				</p>
       </div>		
@@ -219,7 +198,7 @@ for(var i in expanel.children){
         <h1>Attributes demo</h1>
         <script type="text/javascript">
           $("#attr-ex").bind("slideShowed",function(){
-           elementcache["dynamic-code-ex"].appendTo(this);
+           elementcache["dynamic-code-ex"].appendTo(this).find("pre").text("Change attributes!");
            elementcache["elements-ex"].appendTo(this);
           });
         </script>
@@ -344,8 +323,28 @@ function(jsonData){
             .find("pre").text($("#plug-lfm>pre").text());
           });
         </script>
-        <pre style="display:none;">$("#lastfm").lastFM({number:5});</pre>
+        <pre style="display:none;">$("#lastfm").lastFM({number:9});</pre>
       </div>
+      
+      <div class="slide interlude">
+        <h1>Galleria</h1>
+      </div>
+      
+      <div id="gal-ex" class="slide full">
+        <object id="gal-embed" type="text/html" class="site-embed"></object>
+        <script type="text/javascript">
+          $(window).load(function(){
+           $("#gal-ex").bind("slideShowed",function(){
+            $("#footer").fadeOut();
+            $("#gal-embed").attr("data","http://gallery.gocomplex.net/galleria/CDG-DXB%20by%20A380/");
+            }).bind("slideHidden",function(){
+            $("#footer").fadeIn();
+            $("#psm-embed").attr("data","");
+          })
+          });
+        </script>
+      </div>
+      
 
 
       
@@ -424,21 +423,10 @@ function(jsonData){
         </script>
       </div>
 			
-			<div class="slide interlude">
-        <h1>Push Manager</h1>
-      </div>
-			
-			<div id="psm-ex" class="slide full">
-        <object id="psm-embed" type="text/html" class="site-embed"></object>
-        <script type="text/javascript">
-          $(window).load(function(){
-					 $("#psm-ex").bind("slideShowed",function(){
-            $("#psm-embed").attr("data","http://bespin:8380/pm_scenariodesign_webtool/");
-						}).bind("slideHidden",function(){
-            $("#psm-embed").attr("data","");
-          })
-          });
-        </script>
+      
+      <div class="slide">
+        <h1>Questions?</h1>      
+        <img src="img/reveil.jpg" style="height:500px;margin:auto;display:block;"/> 
       </div>
       
     </div>
@@ -496,14 +484,10 @@ function(jsonData){
       
 			<div id="elements-ex">
 				  <p class="id">#elements-ex</p>
-	        <div id="red-ex" class="box drag red" style="width:400px; position:absolute; left:600px;top:500px;">  
-	         <p class="id">#red-ex.red</p>
-	         Relatively well positioned, draggable also
-	        </div>
-	        
-	        <div class="box blu" style="width:300px; heigth:100px; float:left">  
+	
+	        <div class="box " style="width:300px; heigth:100px; float:left">  
 	         <p class="id">.blu</p>
-	         I'm on a float!
+	         <p class="blu">I'm on a float!</p>
 	        </div>
 	        
 	        <table id="tab-ex" class="table-example box">
@@ -522,17 +506,22 @@ function(jsonData){
 	        </table>
 	        
 	        <div class="box" style="width:400px; heigth:200px;">
-					  <p class="id">#fakepaypal-form-ex</p>
-	          <form id="fakepaypal-form-ex" action="">
+					  <p class="id">#fake-form-ex</p>
+	          <form id="fake-form-ex" action="">
 	            <label style="float:left;font-size:1em;">Give me $$$$</label>
-	            <input id="fakepaypal-form-amount" type="text"/></br>
-	            <input id="fakepaypal-form-amount" type="submit" value="Gimme"/>
+	            <input id="fake-form-amount" type="text"/></br>
+	            <input id="fake-form-button" type="submit" value="Gimme"/>
 	          </form>
 	        </div>
+          
+         <div class="box drag" style="width:400px; position:absolute; left:600px;top:500px;">  
+           <p class="id">#red-ex.red</p>
+           <p id="red-ex" class="red">Relatively well positioned, draggable also</p>
+          </div>
 	        <script type="text/javascript">
 	          $(window).load(function(){
-	            $("#fakepaypal-form-ex").submit(function(){
-	              alert("Thanks for your "+$("#fakepaypal-form-amount").val()+" $!");
+	            $("#fake-form-ex").submit(function(){
+	              alert("Thanks for your "+$("#fake-form-amount").val()+" $!");
 	              return false;
 	            });
 	          });
